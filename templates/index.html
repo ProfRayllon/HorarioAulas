@@ -1,68 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horário das Aula</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        table {
-            width: 50%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
+    <title>Horários das Aulas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Horário das Aula</h1>
-    <table id="schedule">
-        <thead>
-            <tr>
-                <th>Horário</th>
-                <th>Disciplina</th>
-                <th>Sala</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- As informações serão carregadas aqui -->
-        </tbody>
-    </table>
+    <div id="horario">
+        <h1>Horários das Aulas</h1>
+        <ul id="lista-horarios">
+            <!-- Horários serão inseridos aqui via JavaScript -->
+        </ul>
+    </div>
 
-    <script>
-        async function fetchSchedule() {
-            try {
-                const response = await fetch('/get_schedule');
-                const schedule = await response.json();
-
-                const tbody = document.querySelector('#schedule tbody');
-                tbody.innerHTML = '';
-
-                schedule.forEach(classInfo => {
-                    const row = `<tr>
-                        <td>${classInfo.time}</td>
-                        <td>${classInfo.subject}</td>
-                        <td>${classInfo.room}</td>
-                    </tr>`;
-                    tbody.innerHTML += row;
-                });
-            } catch (error) {
-                console.error('Erro ao buscar o horário:', error);
-            }
-        }
-
-        fetchSchedule();
-        setInterval(fetchSchedule, 5000); // Atualiza a cada 5 segundos
-    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
