@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horário das Aulas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Horário das Aulas</h1>
+    <table id="schedule">
+        <thead>
+            <tr>
+                <th>Horário</th>
+                <th>Disciplina</th>
+                <th>Sala</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- As informações serão carregadas aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchSchedule() {
+            try {
+                const response = await fetch('/get_schedule');
+                const schedule = await response.json();
+
+                const tbody = document.querySelector('#schedule tbody');
+                tbody.innerHTML = '';
+
+                schedule.forEach(classInfo => {
+                    const row = `<tr>
+                        <td>${classInfo.time}</td>
+                        <td>${classInfo.subject}</td>
+                        <td>${classInfo.room}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error('Erro ao buscar o horário:', error);
+            }
+        }
+
+        fetchSchedule();
+        setInterval(fetchSchedule, 5000); // Atualiza a cada 5 segundos
+    </script>
+</body>
+</html>
