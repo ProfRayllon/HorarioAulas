@@ -7,7 +7,7 @@ async function carregarHorarios() {
     
     if (horarios.length === 0) {
         const listItem = document.createElement('li');
-        listItem.textContent = "Sem aulas hoje";
+        listItem.textContent = "Sem aulas no momento";
         listaHorarios.appendChild(listItem);
     } else {
         horarios.forEach(horario => {
