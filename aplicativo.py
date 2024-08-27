@@ -32,4 +32,4 @@ def horarios_do_dia():
     return jsonify(obter_horarios_do_dia())
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
